@@ -33,11 +33,13 @@ public class Histogram extends Application {
 
         Canvas canvas = new Canvas(600, 500);
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+        //rectangle for "filepath" line
         graphicsContext.strokeRect(1, 400, 598, 50);
         graphicsContext.setStroke(Color.BLACK);
         graphicsContext.setFill(Color.BLACK);
+        //baseline for histograph and index
         graphicsContext.strokeLine(20,350, 540, 350);
-        for (int x = 0; x < 26; x++)
+        for (int x = 0; x < 26; x++)//print index
             graphicsContext.fillText(Character.toString((char)(65 + x)), 20 * (x + 1) + 3 , 365);
 
         TextField directory = new TextField();
@@ -52,12 +54,16 @@ public class Histogram extends Application {
                 try {
                     FileInputStream fileIO = new FileInputStream(directory.getText());
                     int inChar;
+                    //create an int array that corresponds to all alphabet characters, then convert all found
+                    //characters into upper case.
                     int[] alphabetArray = new int[26];
                     while ((inChar = fileIO.read()) != -1){
                         int converted = Character.toUpperCase((char) inChar) - 65;
                         if(converted >= 0 && converted <= 25)
                             alphabetArray[converted]++;
                     }
+                    //chear all drawn graph
+                    graphicsContext.clearRect(0,0, 540, 349);
                     drawGraph(graphicsContext, alphabetArray, findMax(alphabetArray));
                 } catch (FileNotFoundException ex) {
                     System.out.println("File not found.");
