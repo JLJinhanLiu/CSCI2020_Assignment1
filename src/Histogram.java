@@ -1,3 +1,5 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,7 +32,7 @@ public class Histogram extends Application {
         hBox.setSpacing(5);
         hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
-        vBox.setSpacing(-85);
+        vBox.setSpacing(-87);
 
         Canvas canvas = new Canvas(600, 500);
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -46,11 +49,22 @@ public class Histogram extends Application {
         directory.setMinWidth(400);
 
         Label label = new Label("Filename:");
+        //Special File Not Found label for indicating when fileIO fails.
+        Label label1 = new Label("File not found.");
+        label1.setMinHeight(60);
+        label1.setTranslateX(40);
+        label1.setTextFill(Color.RED);
+        label1.setOpacity(0);
 
         Button button = new Button("View");
+        //Timeline for automatically resetting File Not Found opacity
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(2500), ae -> label1.setOpacity(0)));
 
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
+                //clear all drawn graph
+                graphicsContext.clearRect(0,0, 540, 349);
                 try {
                     FileInputStream fileIO = new FileInputStream(directory.getText());
                     int inChar;
@@ -62,11 +76,11 @@ public class Histogram extends Application {
                         if(converted >= 0 && converted <= 25)
                             alphabetArray[converted]++;
                     }
-                    //chear all drawn graph
-                    graphicsContext.clearRect(0,0, 540, 349);
                     drawGraph(graphicsContext, alphabetArray, findMax(alphabetArray));
                 } catch (FileNotFoundException ex) {
                     System.out.println("File not found.");
+                    label1.setOpacity(100);
+                    timeline.play();
                     return;
                 } catch (IOException ex) {
                     System.out.println("File not readable.");
@@ -77,7 +91,7 @@ public class Histogram extends Application {
         button.setOnAction(event);
 
         hBox.getChildren().addAll(label, directory, button);
-        vBox.getChildren().addAll(canvas, hBox);
+        vBox.getChildren().addAll(canvas, hBox, label1);
         stage.setScene(new Scene(vBox));
         stage.show();
     }
