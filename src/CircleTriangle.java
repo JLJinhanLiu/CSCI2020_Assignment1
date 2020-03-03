@@ -30,14 +30,21 @@ public class CircleTriangle extends Application {
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                double locX = circle.getCenterX();
-                double locY = circle.getCenterY();
+                double orgX = circle.getCenterX();
+                double orgY = circle.getCenterY();
 
-                locX = mouseEvent.getSceneX();
-                locY = mouseEvent.getSceneY();
+                double locX = mouseEvent.getSceneX() - 250;
+                double locY = mouseEvent.getSceneY() - 250;
 
-                circle.setCenterX(locX);
-                circle.setCenterY(locY);
+                int length = (int)(Math.sqrt(locX * locX + locY * locY));
+
+                if (length == 150) {
+                    orgX = mouseEvent.getSceneX();
+                    orgY = mouseEvent.getSceneY();
+                }
+
+                circle.setCenterX(orgX);
+                circle.setCenterY(orgY);
             }
         });
 
