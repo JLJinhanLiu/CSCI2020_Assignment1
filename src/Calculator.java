@@ -51,13 +51,12 @@ public class Calculator extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 //make calculation and print results in uneditable textfield
-                valueField.setText(Double.toString((Float.parseFloat(amountField.getText())
-                        * Math.pow((1f + Float.parseFloat(rateField.getText()) * 0.01f),
-                        Float.parseFloat(yearsField.getText())))));
+                valueField.setText(Double.toString((double)((int)(Float.parseFloat(amountField.getText())
+                        * Math.pow((1f + Float.parseFloat(rateField.getText()) * 0.01f / 12f),
+                        Float.parseFloat(yearsField.getText()) * 12) * 100)) / 100d));
             }
         };
         button.setOnAction(event);
-
 
         Scene scene = new Scene(gridPane);
         stage.setScene(scene);
