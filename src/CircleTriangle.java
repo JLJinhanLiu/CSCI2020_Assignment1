@@ -13,6 +13,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 
 public class CircleTriangle extends Application {
 
@@ -30,21 +32,22 @@ public class CircleTriangle extends Application {
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                double orgX = circle.getCenterX();
-                double orgY = circle.getCenterY();
 
                 double locX = mouseEvent.getSceneX() - 250;
                 double locY = mouseEvent.getSceneY() - 250;
-
-                int length = (int)(Math.sqrt(locX * locX + locY * locY));
-
-                if (length == 150) {
-                    orgX = mouseEvent.getSceneX();
-                    orgY = mouseEvent.getSceneY();
+                //Find true degree through arccot - trigonometry
+                double angle = Math.toDegrees(Math.PI/2 - Math.atan(locY/locX));
+                //new coordinates calculated through trigonometry
+                double newLocX = 150d * Math.sin(Math.toRadians(angle));
+                double newLocY = 150d * Math.cos(Math.toRadians(angle));
+                if (locX > 0) {//if X axis is positive, use current vaule
+                    circle.setCenterX(250 + newLocX);
+                    circle.setCenterY(250 + newLocY);
                 }
-
-                circle.setCenterX(orgX);
-                circle.setCenterY(orgY);
+                else{//if X axis is negative, invert current value
+                    circle.setCenterX(250 - newLocX);
+                    circle.setCenterY(250 - newLocY);
+                }
             }
         });
 
@@ -73,6 +76,10 @@ public class CircleTriangle extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Circle");
+        primaryStage.setWidth(600);
+        primaryStage.setHeight(600);
+
         HBox hBox = new HBox();
         Group group = new Group();
 
