@@ -30,15 +30,19 @@ public class Calculator extends Application {
         Label amountLabel = new Label("Investment Amount: ");
         amountLabel.setMinWidth(130);
         TextField amountField = new TextField();
+        amountField.setAlignment(Pos.CENTER_RIGHT);
 
         Label yearsLabel = new Label("Years: ");
         TextField yearsField = new TextField();
+        yearsField.setAlignment(Pos.CENTER_RIGHT);
 
         Label rateLabel = new Label("Annual Interest Rate:");
         TextField rateField = new TextField();
+        rateField.setAlignment(Pos.CENTER_RIGHT);
 
         Label valueLabel = new Label("Future Value:");
         TextField valueField = new TextField();
+        valueField.setAlignment(Pos.CENTER_RIGHT);
 
         //This function disable the textfield editing
         valueField.setEditable(false);
@@ -59,13 +63,11 @@ public class Calculator extends Application {
         gridPane.add(button, 1,4);
 
         //EventHandler for when Button is pressed.
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                //make calculation and print results in uneditable textfield
-                valueField.setText(Double.toString((double)((int)(Float.parseFloat(amountField.getText())
-                        * Math.pow((1f + Float.parseFloat(rateField.getText()) * 0.01f / 12f),
-                        Float.parseFloat(yearsField.getText()) * 12) * 100)) / 100d));
-            }
+        EventHandler<ActionEvent> event = e -> {
+            //make calculation and print results in uneditable textfield
+            valueField.setText(Double.toString((double) ((Math.round(Float.parseFloat(amountField.getText())
+                    * Math.pow((1f + Float.parseFloat(rateField.getText()) * 0.01f / 12f),
+                    Float.parseFloat(yearsField.getText()) * 12) * 100))) / 100d));
         };
         button.setOnAction(event);
 

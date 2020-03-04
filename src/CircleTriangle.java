@@ -133,16 +133,14 @@ public class CircleTriangle extends Application {
     private double lengthCalculation(Circle point1, Circle point2){
         return Math.sqrt(
                 Math.pow((point2.getCenterX() - point1.getCenterX()),2)
-                +
-                Math.pow((point2.getCenterY() - point1.getCenterY()),2)
-                );
+                        + Math.pow((point2.getCenterY() - point1.getCenterY()),2));
     }
 
     //Function to find the angle
     private double angleCalculation(double lengthA, double lengthB, double lengthC){
-        return Math.toDegrees(Math.acos((lengthA*lengthA - lengthB*lengthB - lengthC*lengthC)
-                                                    /
-                                            (-2 * lengthB * lengthC)));
+        return Math.toDegrees(
+                Math.acos((lengthA*lengthA - lengthB*lengthB - lengthC*lengthC)
+                        / (-2 * lengthB * lengthC)));
     }
 
 

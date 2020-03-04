@@ -71,42 +71,38 @@ public class Histogram extends Application {
                 Duration.millis(2500), ae -> label1.setOpacity(0)));
 
         //The EventHandler when "View" button is clicked
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                //clear all drawn graph
-                graphicsContext.clearRect(0,0, 540, 349);
+        EventHandler<ActionEvent> event = e -> {
+            //clear all drawn graph
+            graphicsContext.clearRect(0, 0, 540, 349);
 
-                try {
-                    //Declare the input stream
-                    FileInputStream fileIO = new FileInputStream(directory.getText());
+            try {
+                //Declare the input stream
+                FileInputStream fileIO = new FileInputStream(directory.getText());
 
-                    int inChar;
-                    //create an int array that corresponds to all alphabet characters, then convert all found
-                    //characters into upper case.
-                    int[] alphabetArray = new int[26];
+                int inChar;
+                //create an int array that corresponds to all alphabet characters, then convert all found
+                //characters into upper case.
+                int[] alphabetArray = new int[26];
 
-                    while ((inChar = fileIO.read()) != -1){
-                        int converted = Character.toUpperCase((char) inChar) - 65;
-                        if(converted >= 0 && converted <= 25)
-                            alphabetArray[converted]++;
-                    }
-
-                    drawGraph(graphicsContext, alphabetArray, findMax(alphabetArray));
+                while ((inChar = fileIO.read()) != -1) {
+                    int converted = Character.toUpperCase((char) inChar) - 65;
+                    if (converted >= 0 && converted <= 25)
+                        alphabetArray[converted]++;
                 }
 
-                //If file does not exist
-                catch (FileNotFoundException ex) {
-                    System.out.println("File not found.");
-                    label1.setOpacity(100);
-                    timeline.play();
-                    return;
-                }
+                drawGraph(graphicsContext, alphabetArray, findMax(alphabetArray));
+            }
 
-                //if file is not readable
-                catch (IOException ex) {
-                    System.out.println("File not readable.");
-                    return;
-                }
+            //If file does not exist
+            catch (FileNotFoundException ex) {
+                System.out.println("File not found.");
+                label1.setOpacity(100);
+                timeline.play();
+            }
+
+            //if file is not readable
+            catch (IOException ex) {
+                System.out.println("File not readable.");
             }
         };
         button.setOnAction(event);
