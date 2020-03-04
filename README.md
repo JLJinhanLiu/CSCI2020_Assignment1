@@ -46,7 +46,7 @@ There are 4 codes in this repository. Each code has its own different requiremen
 5. In Main Class textfield, write "`CircleTriangle`"
 
 ### Histogram
-* NOTE: This code requires an additional file to load. It can accept any file format but .txt file is recommended. The code will read the file and count the letters within the file. If the user does not have any file, the sure can use the `the_egg.txt`" to test the code.
+* NOTE: This code requires an additional file to load. It can accept any file format but .txt file is recommended. The code will read the file and count the letters within the file. If the user does not have any file, the sure can use the "`the_egg.txt`" to test the code.
  
 5. In Main Class textfield, write "`Histogram`"
 6. Select the file that you want to count the letters on, and copy its path then paste it into Filename textfield
