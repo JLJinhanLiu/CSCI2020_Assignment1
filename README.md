@@ -2,7 +2,7 @@
 This is the git repository of Assignment 1 of CSCI 2020 Winter Semester. Each code covers the four questions: **Displaying Three Cards**, **Investment Value Calculator**, **Dragging Points on Circle**, and **Histogram**.
 
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine. Follow the instruction from installing the IDE and Library, and it should be running on your local machine.
+This instruction will get you a copy of the code up and running on your local machine. Follow the instruction from installing the IDE and Library to Running the Code.
 
 ### Pre-requisite
 ```
