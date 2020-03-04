@@ -24,31 +24,39 @@ public class Histogram extends Application {
 
     @Override
     public void start(Stage stage) {
+        //Initialize the window
         stage.setTitle("Histogram");
         stage.setWidth(600);
         stage.setHeight(500);
 
+        //Add the HBOX & VBOX
         HBox hBox = new HBox();
         hBox.setSpacing(5);
         hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
         vBox.setSpacing(-87);
 
+        //Declare a canvas to draw
         Canvas canvas = new Canvas(600, 500);
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+
         //rectangle for "filepath" line
         graphicsContext.strokeRect(1, 400, 598, 50);
         graphicsContext.setStroke(Color.BLACK);
         graphicsContext.setFill(Color.BLACK);
+
         //baseline for histograph and index
         graphicsContext.strokeLine(20,350, 540, 350);
-        for (int x = 0; x < 26; x++)//print index
+        for (int x = 0; x < 26; x++)
+            //print index
             graphicsContext.fillText(Character.toString((char)(65 + x)), 20 * (x + 1) + 3 , 365);
 
+        //Textfield for the directory
         TextField directory = new TextField();
         directory.setMinWidth(400);
 
         Label label = new Label("Filename:");
+
         //Special File Not Found label for indicating when fileIO fails.
         Label label1 = new Label("File not found.");
         label1.setMinHeight(60);
@@ -57,32 +65,45 @@ public class Histogram extends Application {
         label1.setOpacity(0);
 
         Button button = new Button("View");
+
         //Timeline for automatically resetting File Not Found opacity
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(2500), ae -> label1.setOpacity(0)));
 
+        //The EventHandler when "View" button is clicked
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 //clear all drawn graph
                 graphicsContext.clearRect(0,0, 540, 349);
+
                 try {
+                    //Declare the input stream
                     FileInputStream fileIO = new FileInputStream(directory.getText());
+
                     int inChar;
                     //create an int array that corresponds to all alphabet characters, then convert all found
                     //characters into upper case.
                     int[] alphabetArray = new int[26];
+
                     while ((inChar = fileIO.read()) != -1){
                         int converted = Character.toUpperCase((char) inChar) - 65;
                         if(converted >= 0 && converted <= 25)
                             alphabetArray[converted]++;
                     }
+
                     drawGraph(graphicsContext, alphabetArray, findMax(alphabetArray));
-                } catch (FileNotFoundException ex) {
+                }
+
+                //If file does not exist
+                catch (FileNotFoundException ex) {
                     System.out.println("File not found.");
                     label1.setOpacity(100);
                     timeline.play();
                     return;
-                } catch (IOException ex) {
+                }
+
+                //if file is not readable
+                catch (IOException ex) {
                     System.out.println("File not readable.");
                     return;
                 }
@@ -90,12 +111,14 @@ public class Histogram extends Application {
         };
         button.setOnAction(event);
 
+        //Add everything to the scene.
         hBox.getChildren().addAll(label, directory, button);
         vBox.getChildren().addAll(canvas, hBox, label1);
         stage.setScene(new Scene(vBox));
         stage.show();
     }
 
+    //Function for drawing the graph
     public void drawGraph(GraphicsContext graphicsContext, int[] array, int largest){
         //draws the baseline for the graph
         graphicsContext.beginPath();
@@ -109,6 +132,7 @@ public class Histogram extends Application {
             graphicsContext.lineTo(20 * (x + 1) + 15, 350 );
             graphicsContext.lineTo(20 * (x + 1) + 20, 350 );
         }
+
         graphicsContext.setLineWidth(1);
         graphicsContext.stroke();
     }

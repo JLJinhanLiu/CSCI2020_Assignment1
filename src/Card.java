@@ -10,15 +10,18 @@ public class Card extends Application{
 
     @Override
     public void start(Stage stage) {
+
+        //Setting up the window
         stage.setTitle("Assignment 1");
         stage.setWidth(300);
         stage.setHeight(150);
 
+        //HBOX
         HBox hbox = new HBox();
         hbox.setSpacing(20);
         hbox.setPadding(new Insets(10, 10, 10, 10));
 
-        //initialize randomizers
+        //initialize random number generator
         int card2, card3, card1 = (int)(Math.random() * 54 + 1);
 
         //to make sure cards don't replicate, will keep on randomizing until they don't match
@@ -37,6 +40,7 @@ public class Card extends Application{
                 new ImageView(new Image("/Cards/" + card3 + ".png" ))
         );
 
+        //Add HBOX to the stage.
         Scene scene = new Scene(hbox);
         stage.setScene(scene);
         stage.show();
