@@ -1,5 +1,5 @@
 # CSCI 2020 Assignment 1
-This is the git repository of Assignment 1 of CSCI 2020 Winter Semester. It covers four questions for each codes: **Displaying Three Cards**, **Investment Value Calculator**, **Dragging Points on Circle**, and **Histogram**.
+This is the git repository of Assignment 1 of CSCI 2020 Winter Semester. Each code covers the four questions: **Displaying Three Cards**, **Investment Value Calculator**, **Dragging Points on Circle**, and **Histogram**.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine. Follow the instruction from installing the IDE and Library, and it should be running on your local machine.
@@ -26,10 +26,10 @@ JavaFX SDK 11.0.2
 10. Click OK
 
 ## Running the Code
-There are 4 codes in this repository. Each code has its own different requirement to run, but the beginning part is the same for each code.
+There are 4 codes in this repository. Each code has its different requirements to run, but the beginning part is the same for each code.
 
 1. Select Run > Edit Configuration...
-2. Select Application > "+" symbol on the top left > Applcation
+2. Select Application > "+" symbol on the top left > Application
 3. In VM Options textfield, write "`(JavaFX SDK Root Folder)\lib --add-modules javafx.controls,javafx.fxml`"
 4. Put the appropriate code's name in the Name textfield
 
