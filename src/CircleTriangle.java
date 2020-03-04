@@ -54,11 +54,11 @@ public class CircleTriangle extends Application {
             double calculation2 = angleCalculation(lengthB, lengthA, lengthC);
             double calculation3 = angleCalculation(lengthC, lengthB, lengthA);
 
-            angleNum1.setText(Integer.toString((int)calculation1));
-            translateText(angleNum1, angle, locX >= 0);
-            angleNum2.setText(Integer.toString((int)calculation2));
+            angleNum1.setText(Integer.toString((int)Math.round(calculation1)));
+            translateText(angleNum1, angle, circle1.getCenterX() - 250 >= 0);
+            angleNum2.setText(Integer.toString((int)Math.round(calculation2)));
             translateText(angleNum2, angle2, circle2.getCenterX() - 250 >= 0);
-            angleNum3.setText(Integer.toString((int)calculation3));
+            angleNum3.setText(Integer.toString((int)Math.round(calculation3)));
             translateText(angleNum3, angle3, circle3.getCenterX() - 250 >= 0);
 
         };
